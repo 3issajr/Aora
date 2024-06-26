@@ -12,8 +12,11 @@ import VideoCard from '../../components/VideoCard'
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
 import useAppWrite from '../../lib/useAppWrite'
 
-const Home = () => {
+import { useGlobalContext } from '../../context/GlobalProvider'
 
+const Home = () => {
+   
+  const {user , setUser , setIsLoggedIn} = useGlobalContext()
   const {data : posts , refetch} = useAppWrite(getAllPosts) // Related to Normal Video
   const {data : latestPosts } = useAppWrite(getLatestPosts) // Related to Trending Videos
   const [refreshing, setRefreshing] = useState(false)
@@ -40,8 +43,8 @@ const Home = () => {
           <View className='justify-between items-start flex-row mb-6'>
 
             <View>
-              <Text className='font-pmedium text-sm text-gray-100'>Welcome Back</Text>
-              <Text className='text-2xl font-psemibold text-white'>JS Mastery</Text>
+              <Text className='font-pmedium text-sm text-gray-100'>Welcome Back,</Text>
+              <Text className='text-2xl font-psemibold text-white'>{user?.username}</Text>
             </View>
 
             <View className='mt-1.5'>
